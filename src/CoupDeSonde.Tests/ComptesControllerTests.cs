@@ -54,6 +54,20 @@ public class ComptesControllerTests : IClassFixture<SondageApiFactory>
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    [Theory]
+    [InlineData("user*name")]
+    [InlineData("user name")]
+    [InlineData("admin'--")]
+    [InlineData("аdmin")] // 'а' cyrillique, pas 'a' latin : homoglyphe
+    public async Task Inscription_NomUtilisateurCaracteresInvalides_Retourne400(string nomUtilisateur)
+    {
+        var requete = new InscriptionRequete(nomUtilisateur, "MotDePasse123!");
+
+        var response = await CreateAuthorizedClient().PostAsJsonAsync("/api/comptes/inscription", requete);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
     [Fact]
     public async Task Inscription_MotDePasseTropCourt_Retourne400()
     {
@@ -92,6 +106,16 @@ public class ComptesControllerTests : IClassFixture<SondageApiFactory>
         var response = await _factory.CreateClient().PostAsJsonAsync("/api/comptes/inscription", requete);
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Connexion_FormatInvalide_Retourne400()
+    {
+        var requete = new ConnexionRequete("", "peu-importe");
+
+        var response = await CreateAuthorizedClient().PostAsJsonAsync("/api/comptes/connexion", requete);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]

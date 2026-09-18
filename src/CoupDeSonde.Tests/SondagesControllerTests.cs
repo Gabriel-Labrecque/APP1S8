@@ -134,6 +134,28 @@ public class SondagesControllerTests : IClassFixture<SondageApiFactory>
     }
 
     [Fact]
+    public async Task PostReponse_ValeurVide_Retourne400()
+    {
+        var client = await _factory.CreateParticipantClientAsync();
+        var soumission = new ReponseSoumission { Reponses = new Dictionary<int, string> { [1] = "" } };
+
+        var response = await client.PostAsJsonAsync("/api/sondages/1/reponses", soumission);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task PostReponse_ValeurTropLongue_Retourne400()
+    {
+        var client = await _factory.CreateParticipantClientAsync();
+        var soumission = new ReponseSoumission { Reponses = new Dictionary<int, string> { [1] = new string('a', 21) } };
+
+        var response = await client.PostAsJsonAsync("/api/sondages/1/reponses", soumission);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
     public async Task PostReponse_ChoixInvalide_Retourne400()
     {
         var client = await _factory.CreateParticipantClientAsync();

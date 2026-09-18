@@ -3,6 +3,8 @@ using CoupDeSonde.Api.Data;
 using CoupDeSonde.Api.Models;
 using CoupDeSonde.Api.Security;
 using CoupDeSonde.Api.Services;
+using CoupDeSonde.Api.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
@@ -51,6 +53,10 @@ builder.Services.AddSingleton(sp => new FileParticipantRepository(ResoudreDataDi
 builder.Services.AddSingleton<IPasswordHasher<Participant>, PasswordHasher<Participant>>();
 builder.Services.AddScoped<ISondageService, SondageService>();
 builder.Services.AddScoped<IParticipantAuthService, ParticipantAuthService>();
+
+builder.Services.AddScoped<IValidator<InscriptionRequete>, InscriptionRequeteValidator>();
+builder.Services.AddScoped<IValidator<ConnexionRequete>, ConnexionRequeteValidator>();
+builder.Services.AddScoped<IValidator<ReponseSoumission>, ReponseSoumissionValidator>();
 
 builder.Services
     .AddAuthentication(ApiKeyAuthenticationOptions.DefaultScheme)

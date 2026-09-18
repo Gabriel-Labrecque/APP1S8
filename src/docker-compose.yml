@@ -7,3 +7,4 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:8080
       - ASPNETCORE_ENVIRONMENT=Development
+      - ApiKeys__0=${API_KEY:-REMPLACER-PAR-UNE-CLE-GENEREE-EN-DEV}

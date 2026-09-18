@@ -2,6 +2,7 @@ using System.Security.Claims;
 using CoupDeSonde.Api.Models;
 using CoupDeSonde.Api.Security;
 using CoupDeSonde.Api.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,16 +17,29 @@ namespace CoupDeSonde.Api.Controllers;
 public class ComptesController : ControllerBase
 {
     private readonly IParticipantAuthService _authService;
+    private readonly IValidator<InscriptionRequete> _inscriptionValidator;
+    private readonly IValidator<ConnexionRequete> _connexionValidator;
 
-    public ComptesController(IParticipantAuthService authService)
+    public ComptesController(
+        IParticipantAuthService authService,
+        IValidator<InscriptionRequete> inscriptionValidator,
+        IValidator<ConnexionRequete> connexionValidator)
     {
         _authService = authService;
+        _inscriptionValidator = inscriptionValidator;
+        _connexionValidator = connexionValidator;
     }
 
     /// <summary>Cree un compte participant (nom d'utilisateur + mot de passe).</summary>
     [HttpPost("inscription")]
     public async Task<IActionResult> Inscription([FromBody] InscriptionRequete requete)
     {
+        var validation = await _inscriptionValidator.ValidateAsync(requete);
+        if (!validation.IsValid)
+        {
+            return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+        }
+
         var resultat = await _authService.InscrireAsync(requete.NomUtilisateur, requete.MotDePasse);
 
         return resultat.Status switch
@@ -42,6 +56,12 @@ public class ComptesController : ControllerBase
     [EnableRateLimiting("connexion")]
     public async Task<IActionResult> Connexion([FromBody] ConnexionRequete requete)
     {
+        var validation = await _connexionValidator.ValidateAsync(requete);
+        if (!validation.IsValid)
+        {
+            return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+        }
+
         var valide = await _authService.ValiderIdentifiantsAsync(requete.NomUtilisateur, requete.MotDePasse);
         if (!valide)
         {

@@ -1,6 +1,7 @@
 using CoupDeSonde.Api.Models;
 using CoupDeSonde.Api.Security;
 using CoupDeSonde.Api.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,10 +13,12 @@ namespace CoupDeSonde.Api.Controllers;
 public class SondagesController : ControllerBase
 {
     private readonly ISondageService _sondageService;
+    private readonly IValidator<ReponseSoumission> _reponseValidator;
 
-    public SondagesController(ISondageService sondageService)
+    public SondagesController(ISondageService sondageService, IValidator<ReponseSoumission> reponseValidator)
     {
         _sondageService = sondageService;
+        _reponseValidator = reponseValidator;
     }
 
     /// <summary>Liste les sondages disponibles.</summary>
@@ -42,6 +45,12 @@ public class SondagesController : ControllerBase
     [Authorize(AuthenticationSchemes = ParticipantCookieDefaults.Scheme)]
     public async Task<IActionResult> SoumettreReponse(int id, [FromBody] ReponseSoumission soumission)
     {
+        var validation = await _reponseValidator.ValidateAsync(soumission);
+        if (!validation.IsValid)
+        {
+            return BadRequest(validation.Errors.Select(e => e.ErrorMessage));
+        }
+
         var participantId = User.Identity!.Name!;
         var resultat = await _sondageService.SoumettreReponseAsync(id, participantId, soumission);
 

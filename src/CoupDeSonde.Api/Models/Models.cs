@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace CoupDeSonde.Api.Models;
 
 public class Question
@@ -54,10 +52,5 @@ public class Participant
     public string MotDePasseHache { get; set; } = string.Empty;
 }
 
-public record InscriptionRequete(
-    [Required, StringLength(50, MinimumLength = 1)] string NomUtilisateur,
-    [Required, StringLength(200, MinimumLength = 8)] string MotDePasse);
-
-public record ConnexionRequete(
-    [Required, StringLength(50, MinimumLength = 1)] string NomUtilisateur,
-    [Required, StringLength(200, MinimumLength = 1)] string MotDePasse);
+public record InscriptionRequete(string NomUtilisateur, string MotDePasse);
+public record ConnexionRequete(string NomUtilisateur, string MotDePasse);

@@ -62,6 +62,16 @@ public class FileParticipantRepositoryTests : IDisposable
         Assert.NotNull(relu);
     }
 
+    [Fact]
+    public async Task CreateAsync_AppelsSimultanesMemeNomUtilisateur_UnSeulReussit()
+    {
+        var resultats = await Task.WhenAll(
+            _repository.CreateAsync(new Participant { NomUtilisateur = "concurrent", MotDePasseHache = "hash1" }),
+            _repository.CreateAsync(new Participant { NomUtilisateur = "concurrent", MotDePasseHache = "hash2" }));
+
+        Assert.Equal(1, resultats.Count(r => r));
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(_dataDir))
