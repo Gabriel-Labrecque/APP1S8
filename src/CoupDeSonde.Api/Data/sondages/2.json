@@ -1,0 +1,45 @@
+{
+  "id": 2,
+  "titre": "Habitudes de consommation",
+  "questions": [
+    {
+      "id": 1,
+      "texte": "À quelle tranche d'âge appartenez-vous?",
+      "choix": {
+        "a": "0-25 ans",
+        "b": "25-50 ans",
+        "c": "50-75 ans",
+        "d": "75 ans et +"
+      }
+    },
+    {
+      "id": 2,
+      "texte": "Êtes-vous une femme ou un homme?",
+      "choix": {
+        "a": "Femme",
+        "b": "Homme",
+        "c": "Je ne veux pas répondre"
+      }
+    },
+    {
+      "id": 3,
+      "texte": "Combien de tasses de café buvez-vous chaque jour?",
+      "choix": {
+        "a": "Je ne bois pas de café",
+        "b": "Entre 1 et 5 tasses",
+        "c": "Entre 6 et 10 tasses",
+        "d": "10 tasses ou plus"
+      }
+    },
+    {
+      "id": 4,
+      "texte": "Combien de consommations alcoolisées buvez-vous chaque jour?",
+      "choix": {
+        "a": "0",
+        "b": "1",
+        "c": "2 ou 3",
+        "d": "3 ou plus"
+      }
+    }
+  ]
+}

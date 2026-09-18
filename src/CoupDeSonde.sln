@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoupDeSonde.Api", "CoupDeSonde.Api\CoupDeSonde.Api.csproj", "{E773E71E-1C3F-47C1-AEBD-21ACD442C3EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoupDeSonde.Tests", "CoupDeSonde.Tests\CoupDeSonde.Tests.csproj", "{D62039A9-80E2-4E14-B091-92A6BE9EE6A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E773E71E-1C3F-47C1-AEBD-21ACD442C3EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E773E71E-1C3F-47C1-AEBD-21ACD442C3EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E773E71E-1C3F-47C1-AEBD-21ACD442C3EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E773E71E-1C3F-47C1-AEBD-21ACD442C3EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D62039A9-80E2-4E14-B091-92A6BE9EE6A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D62039A9-80E2-4E14-B091-92A6BE9EE6A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D62039A9-80E2-4E14-B091-92A6BE9EE6A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D62039A9-80E2-4E14-B091-92A6BE9EE6A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
