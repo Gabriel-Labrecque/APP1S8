@@ -2,6 +2,6 @@ bin/
 obj/
 TestResults/
 *.user
-Data/reponses/*.json
-Data/participants.json
+CoupDeSonde.Api/Data/reponses/*.json
+CoupDeSonde.Api/Data/participants.json
 .env
