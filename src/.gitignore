@@ -3,4 +3,5 @@ obj/
 TestResults/
 *.user
 Data/reponses/*.json
+Data/participants.json
 .env
